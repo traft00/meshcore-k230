@@ -41,9 +41,13 @@ Sources: [V1.0 schematic, LoRa sheet](https://github.com/Xinyuan-LilyGO/T-Displa
 
 - The schematic shows a K230 and LPDDR4. Confirm installed RAM for the ordered revision. The Linux BSP maps SD boot/storage to GPIO54–59. Confirm the correct image and recovery steps for that revision.
 - The BSP identifies the RM69A10 AMOLED on MIPI DSI with GPIO22 reset and GPIO25 enable. GT9895 touch uses I2C on GPIO36/37, with GPIO23 IRQ and GPIO24 reset.
-- The optional keyboard base uses a TCA8418 at I2C address 0x34, GPIO42 IRQ, GPIO43 reset and GPIO52/PWM4 backlight. The BSP also maps BQ25896 charger and BQ27220 battery gauge support on the base. Confirm battery inclusion and the hardware populated on the selected keyboard variant.
+- The BSP describes a TCA8418 keyboard at I2C address 0x34 on SDA47/SCL46, with IRQ42, reset43 and backlight52. The wiki's cased keyboard drawing instead labels SDA33/SCL32, IRQ46, reset43 and backlight47. The drawing also identifies BQ25896 charging, BQ27220 fuel gauging and an empty 21700 holder. Match the base PCB revision before relying on either pin map. An 868 MHz kit owner reported the mismatch under v0.2.8 in [vendor issue #10](https://github.com/Xinyuan-LilyGO/T-Display-K230/issues/10). See the [wiki keyboard drawing](https://wiki.lilygo.cc/products/t-display-series/t-display-k230/index/image/t-display-k230-keyboard-extension.jpg).
 
 Source: [Linux BSP hardware pin map](https://github.com/Xinyuan-LilyGO/T-Display-K230/blob/c27c58c07ca5e39d15f5dcf1b7103aead29282df/k230_bsp/docs/HARDWARE_PINMAP.md).
+
+The wiki's original V1.0 photo and cased pin map both corroborate the eight host-side radio lines above. The original 40-pin diagram additionally labels GPIO3 as LoRa TCXO enable and GPIO4 as LoRa IRQ, separately from GPIO20 DIO1. The schematic shows these extra nets at unpopulated selection resistors R103 and R104. Treat them as module-dependent and follow the SX1262 launcher and schematic path for GPIO20.
+
+Sources: [original pin map](https://wiki.lilygo.cc/products/t-display-series/t-display-k230/index/image/t-display-k230-cn.jpg), [40-pin diagram](https://wiki.lilygo.cc/products/t-display-series/t-display-k230/index/image/t-display-k230-40pin.jpg), [cased pin map](https://wiki.lilygo.cc/products/t-display-series/t-display-k230/cased-version/image/t-display-k230-cased-pinmap.jpg).
 
 ## MeshCore installation
 
