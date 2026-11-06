@@ -37,6 +37,14 @@ The Linux device-tree patch enables SPI0 CS0 with a 4 MHz ceiling. The launcher 
 
 Sources: [V1.0 schematic, LoRa sheet](https://github.com/Xinyuan-LilyGO/T-Display-K230_canmv_rt/blob/abb07090ad8a666ed7a5e097b3c714b918731645/schematic/T-Display%20K230_V1.0_NEW.pdf), [SPI device-tree patch](https://github.com/Xinyuan-LilyGO/T-Display-K230/blob/c27c58c07ca5e39d15f5dcf1b7103aead29282df/k230_bsp/overlay/buildroot-overlay/linux/0054-riscv-dts-rm69a10-enable-lora-spidev.patch), [launcher radio code](https://github.com/Xinyuan-LilyGO/T-Display-K230/blob/c27c58c07ca5e39d15f5dcf1b7103aead29282df/k230_launcher/k230_phone_ui/src/ui_lora.cpp), [bundled RadioLib SX126x initialization](https://github.com/Xinyuan-LilyGO/T-Display-K230/blob/c27c58c07ca5e39d15f5dcf1b7103aead29282df/k230_launcher/k230_phone_ui/src/third_party/RadioLib/src/modules/SX126x/SX126x.cpp).
 
+## CanMV RT repository history
+
+The CanMV RT repository ships separate V1.2 and V1.3 RT-Smart SD images. The checked-in LoRa demo selects LR2021 by default, with a compile-time SX1262 branch that initializes at 915 MHz with a 3.3 V TCXO and BUSY on GPIO19. The RT branch passes no DIO1 GPIO to RadioLib. This is source evidence of a vendor 915 MHz SX1262 configuration, without a test record for the K256-A or Linux v0.2.9.
+
+The bundled HPD16A datasheet lists two high-band HPD16A_89 SX1262 variants covering 830–945 MHz, one with a TCXO and one with a standard crystal. The datasheet does not identify which module is populated on K256-A. The historical schematic and current schematic both carry V1.0 on the LoRa sheet, but differ in the radio circuit. The older sheet shows the radio supplied by Radio_3V3 and no local U27 regulator/enable circuit, while the June 2026 sheet explicitly shows the GPIO44-enabled U27 path. This makes the schematic date and PCB marking important alongside the revision label.
+
+Sources: [CanMV RT README](https://github.com/Xinyuan-LilyGO/T-Display-K230_canmv_rt/blob/abb07090ad8a666ed7a5e097b3c714b918731645/README.md), [RT radio demo](https://github.com/Xinyuan-LilyGO/T-Display-K230_canmv_rt/blob/abb07090ad8a666ed7a5e097b3c714b918731645/canmv_k230/src/rtsmart/mpp/userapps/sample/sample_display/ui_brookesia/src/app_examples/phone/lora/Lora.cpp), [historical schematic](https://github.com/Xinyuan-LilyGO/T-Display-K230_canmv_rt/blob/ed19e87f/schematic/T-Display%20K230%20V1.0.pdf), [module datasheet directory](https://github.com/Xinyuan-LilyGO/T-Display-K230_canmv_rt/tree/abb07090ad8a666ed7a5e097b3c714b918731645/datasheet).
+
 ## Other board interfaces
 
 - The schematic shows a K230 and LPDDR4. Confirm installed RAM for the ordered revision. The Linux BSP maps SD boot/storage to GPIO54–59. Confirm the correct image and recovery steps for that revision.
