@@ -8,6 +8,10 @@ The cased kit lists **K256-03** as SX1262/868 MHz and **K277** as LR2021/830–9
 
 Sources: [cased kit variants](https://lilygo.cc/products/t-display-k230-kit.js), [standalone variants](https://lilygo.cc/products/t-display-k230.js), [cased kit shipping list](https://lilygo.cc/products/t-display-k230-kit).
 
+LILYGO's own Spark device manifest identifies the standalone T-Display K230 as SX1262 across all four listed bands, including 915 MHz, and links directly to the storefront where 915 MHz maps to K256-A. This is strong evidence that K256-A is specified with an SX1262. The manifest describes the product family and does not identify the PCB revision or production lot. The older CanMV RT repository also documents SX1262 support, but its RT firmware archives cannot establish compatibility with the current Linux SD image.
+
+Sources: [LILYGO Spark device manifest](https://github.com/Xinyuan-LilyGO/LILYGO-Spark/blob/a88415a33a699dbdf64d90f5d38263f549d53017/firmware_manifest.json), [CanMV RT revision history](https://github.com/Xinyuan-LilyGO/T-Display-K230_canmv_rt/blob/main/README.md).
+
 As of 2026-11-06, LILYGO's latest Linux SD image is **v0.2.9**. The launcher source at that release tag includes SX1262 detection and a factory 915 MHz profile. This confirms software support for the documented SX1262 design. The store data identifies K256-A by band only, and the release does not identify a tested K256-A PCB revision. Ask LILYGO to confirm the radio module and PCB revision in current K256-A stock and that it boots v0.2.9 and detects the onboard radio.
 
 Sources: [v0.2.9 Linux image](https://github.com/Xinyuan-LilyGO/T-Display-K230/releases/tag/v0.2.9), [v0.2.9 radio source](https://github.com/Xinyuan-LilyGO/T-Display-K230/blob/v0.2.9/k230_launcher/k230_phone_ui/src/ui_lora.cpp).
