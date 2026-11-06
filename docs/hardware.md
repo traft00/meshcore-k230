@@ -45,6 +45,14 @@ There is one fixed launcher pin map and no separate old-V1.0 detection branch. T
 
 Sources: [v0.2.9 launcher probe and GPIO/SPI HAL](https://github.com/Xinyuan-LilyGO/T-Display-K230/blob/v0.2.9/k230_launcher/k230_phone_ui/src/ui_lora.cpp), [RadioLib reset and version read](https://github.com/Xinyuan-LilyGO/T-Display-K230/blob/v0.2.9/k230_launcher/k230_phone_ui/src/third_party/RadioLib/src/modules/SX126x/SX126x.cpp), [v0.2.9 changelog](https://github.com/Xinyuan-LilyGO/T-Display-K230/blob/v0.2.9/CHANGELOG.MD).
 
+### Published SD image inspection
+
+The downloaded v0.2.9 `sysimage-sdcard.img.gz` matched GitHub's published SHA-256 `ea1b825c9afad82c51a742e3010265d681f6ca90df9ea8318ccc9924e17a2877`. The image's boot partition links `k.dtb` to `k230-canmv-rm69a10.dtb`. That compiled DTB enables the SPI controller at `0x91584000` and its CS0 spidev child at 4 MHz, with GPIO15–17 and GPIO14 muxed to SPI. The compiled kernel embeds `CONFIG_SPI_SPIDEV=y` and `CONFIG_GPIO_CDEV=y`. The shipped HDMI DTB does not contain the spidev child.
+
+The root filesystem's init script launches the shipped RISC-V `k230_phone_ui` executable. The stripped binary contains the startup probe, SX1262/LR2021 fallback, Factory 915, `/dev/spidev0.0`, and radio log strings that match the tagged source. This is static evidence from the release artifact. Successful boot and physical radio detection still require the target hardware.
+
+Source: [v0.2.9 release asset](https://github.com/Xinyuan-LilyGO/T-Display-K230/releases/tag/v0.2.9).
+
 ## CanMV RT repository history
 
 The CanMV RT repository ships separate V1.2 and V1.3 RT-Smart SD images. The checked-in LoRa demo selects LR2021 by default, with a compile-time SX1262 branch that initializes at 915 MHz with a 3.3 V TCXO and BUSY on GPIO19. The RT branch passes no DIO1 GPIO to RadioLib. This is source evidence of a vendor 915 MHz SX1262 configuration, without a test record for the K256-A or Linux v0.2.9.
