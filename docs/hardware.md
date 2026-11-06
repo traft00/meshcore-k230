@@ -73,6 +73,14 @@ The wiki's original V1.0 photo and cased pin map both corroborate the eight host
 
 Sources: [original pin map](https://wiki.lilygo.cc/products/t-display-series/t-display-k230/index/image/t-display-k230-cn.jpg), [40-pin diagram](https://wiki.lilygo.cc/products/t-display-series/t-display-k230/index/image/t-display-k230-40pin.jpg), [cased pin map](https://wiki.lilygo.cc/products/t-display-series/t-display-k230/cased-version/image/t-display-k230-cased-pinmap.jpg).
 
+## DOORS MeshCore reference
+
+DOORS v0.3.9's RadioLib backend uses hardware chip select on `/dev/spidev0.0` at 4 MHz, with reset5, BUSY19, DIO1 on GPIO20, and power44. It allows a power GPIO of -1 for an always-powered board and defaults to 3300 mV TCXO control, configurable to 0 for a crystal. These defaults match the documented K230 wiring. DOORS reports successful 3.3 V TCXO initialization and MeshCore interoperability on unit A at 869.618 MHz, but does not identify it as K256-A. The fresh-card v0.3.9 test left the real radio disabled.
+
+The backend exposes a frequency range that includes 915 MHz, but the daemon only implements EU868 and a shielded-lab NONE mode. EU868 rejects 915 MHz, so the stock release does not provide a US915 operating profile.
+
+Sources: [v0.3.9 SX1262 backend](https://github.com/KrakenSaten/K230/blob/v0.3.9/services/radiod/backend_sx1262.cpp), [region policy](https://github.com/KrakenSaten/K230/blob/v0.3.9/services/radiod/main.c), [radio bench review](https://github.com/KrakenSaten/K230/blob/v0.3.9/docs/hardware/POST_BRINGUP_REVIEW_2026-09-07.md), [MeshCore interoperability test](https://github.com/KrakenSaten/K230/blob/v0.3.9/docs/hardware/MESHCORE_INTEROP_GATE.md), [v0.3.9 release](https://github.com/KrakenSaten/K230/releases/tag/v0.3.9).
+
 ## MeshCore installation
 
 The MeshCore web flasher’s default device catalog has no T-Display K230 entry as of 2026-11-06. Its similarly named T-Display Pro entry is an ESP32 target. Use the matching LILYGO Linux image as the starting point for the K230 feasibility work.
