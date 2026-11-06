@@ -37,6 +37,12 @@ Sources: [V1.0 schematic, LoRa sheet](https://github.com/Xinyuan-LilyGO/T-Displa
 
 Source: [Linux BSP hardware pin map](https://github.com/Xinyuan-LilyGO/T-Display-K230/blob/c27c58c07ca5e39d15f5dcf1b7103aead29282df/k230_bsp/docs/HARDWARE_PINMAP.md).
 
+## MeshCore installation
+
+The MeshCore web flasher’s default device catalog has no T-Display K230 entry as of 2026-11-06. Its similarly named T-Display Pro entry is an ESP32 target. Use the matching LILYGO Linux image as the starting point for the K230 feasibility work.
+
+Sources: [MeshCore web flasher catalog](https://flasher.meshcore.io/config.json), [LILYGO Linux releases](https://github.com/Xinyuan-LilyGO/T-Display-K230/releases).
+
 ## Bench checks after SKU confirmation
 
 1. Record PCB and module markings, boot the matching Linux image and verify the radio device and GPIO lines.
